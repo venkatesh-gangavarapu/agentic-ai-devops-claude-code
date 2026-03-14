@@ -1,0 +1,19 @@
+# Credentials — never commit these
+.claude/settings.local.json
+.claude/deploy.log
+.claude/tf-outputs.json
+
+# Terraform
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform/tfplan.out
+terraform/*.tfstate
+terraform/*.tfstate.backup
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/settings.json
+*.swp

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Name — DevOps Engineer</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    /* ── Portfolio-specific overrides ── */
+    .hero-content h1 { font-size: 48px; }
+
+    .pipeline-steps {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 30px;
+    }
+    .pipeline-step {
+      background: rgba(250,204,21,0.15);
+      border: 1px solid #facc15;
+      color: #facc15;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: bold;
+      font-family: monospace;
+    }
+    .pipeline-arrow {
+      color: #facc15;
+      font-size: 20px;
+      line-height: 36px;
+    }
+
+    /* Skills badges */
+    .skills-section { padding: 80px 20px; background: #f9fafb; }
+    .skills-container { max-width: 1100px; margin: auto; }
+    .skills-header { text-align: center; margin-bottom: 60px; }
+    .skills-header h2 { font-size: 44px; font-weight: 800; }
+    .skills-header p { color: #666; font-size: 18px; margin-top: 10px; }
+    .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .skill-category {
+      background: #fff;
+      border: 2px solid #eee;
+      border-radius: 20px;
+      padding: 30px;
+      transition: 0.3s;
+    }
+    .skill-category:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      border-color: #facc15;
+    }
+    .skill-category h3 { font-size: 18px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+    .skill-category h3 i { color: #facc15; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      background: #f3f4f6;
+      color: #374151;
+      font-size: 13px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+    .skill-tag.highlight {
+      background: #fef3c7;
+      color: #92400e;
+      font-weight: bold;
+    }
+
+    /* Projects section */
+    .projects-section { padding: 80px 20px; background: #fff; }
+    .projects-container { max-width: 1100px; margin: auto; }
+    .projects-header { text-align: center; margin-bottom: 60px; }
+    .projects-header h2 { font-size: 44px; font-weight: 800; }
+    .projects-header p { color: #666; font-size: 18px; margin-top: 10px; }
+
+    .project-card {
+      border: 2px solid #eee;
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 40px;
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      border-color: #facc15;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+    .project-card .project-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #000;
+      color: #facc15;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+    .project-card h3 { font-size: 26px; margin-bottom: 12px; }
+    .project-card p { color: #555; font-size: 16px; line-height: 1.7; margin-bottom: 20px; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    .tech-tag {
+      background: #dbeafe;
+      color: #1e40af;
+      font-size: 13px;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+    .project-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+      font-size: 14px;
+    }
+    .project-link.primary { background: #000; color: #fff; }
+    .project-link.secondary { background: #facc15; color: #000; }
+    .project-link:hover { transform: translateY(-2px); }
+
+    .pipeline-visual {
+      background: #f9fafb;
+      border-radius: 14px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 14px;
+      color: #374151;
+      overflow-x: auto;
+    }
+    .pipeline-visual span { color: #2563eb; font-weight: bold; }
+    .pipeline-visual .arrow { color: #facc15; }
+
+    /* Journey timeline */
+    .journey-section { padding: 80px 20px; background: #f9fafb; }
+    .journey-container { max-width: 900px; margin: auto; }
+    .journey-header { text-align: center; margin-bottom: 60px; }
+    .journey-header h2 { font-size: 44px; font-weight: 800; }
+    .journey-header p { color: #666; margin-top: 10px; font-size: 18px; }
+
+    .timeline { position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 30px;
+      top: 0; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #facc15, #3b82f6);
+    }
+    .timeline-item {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 40px;
+      padding-left: 10px;
+    }
+    .timeline-dot {
+      min-width: 44px;
+      height: 44px;
+      background: #facc15;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+      color: #000;
+      z-index: 1;
+      flex-shrink: 0;
+    }
+    .timeline-content {
+      background: #fff;
+      border: 2px solid #eee;
+      border-radius: 16px;
+      padding: 20px 25px;
+      flex: 1;
+      transition: 0.3s;
+    }
+    .timeline-content:hover {
+      border-color: #facc15;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+    .timeline-week {
+      font-size: 12px;
+      font-weight: bold;
+      color: #ca8a04;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .timeline-content h3 { font-size: 18px; margin-bottom: 6px; }
+    .timeline-content p { color: #555; font-size: 14px; line-height: 1.6; }
+
+    /* Cert section */
+    .cert-section { padding: 80px 20px; background: #fff; }
+    .cert-container { max-width: 900px; margin: auto; text-align: center; }
+    .cert-card {
+      background: linear-gradient(135deg, #000, #1a1a2e);
+      border-radius: 24px;
+      padding: 60px 40px;
+      border: 2px solid #facc15;
+      box-shadow: 0 20px 60px rgba(250,204,21,0.15);
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-card::before {
+      content: '🎓';
+      position: absolute;
+      font-size: 200px;
+      top: -40px;
+      right: -30px;
+      opacity: 0.05;
+    }
+    .cert-card h2 { color: #facc15; font-size: 36px; margin-bottom: 10px; }
+    .cert-card h3 { color: #fff; font-size: 22px; margin-bottom: 20px; font-weight: 400; }
+    .cert-card p { color: #aaa; font-size: 16px; margin-bottom: 30px; line-height: 1.7; }
+    .cert-meta { display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; margin-bottom: 30px; }
+    .cert-meta div { text-align: center; }
+    .cert-meta small { color: #888; font-size: 12px; display: block; margin-bottom: 4px; }
+    .cert-meta span { color: #facc15; font-weight: bold; font-size: 16px; }
+    .cert-instructor {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 14px;
+      padding: 16px 24px;
+      margin-top: 20px;
+    }
+    .cert-instructor img {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #facc15;
+    }
+    .cert-instructor div { text-align: left; }
+    .cert-instructor strong { color: #fff; display: block; }
+    .cert-instructor small { color: #aaa; }
+
+    /* Open to work banner */
+    .otw-banner {
+      background: linear-gradient(to right, #facc15, #fbbf24);
+      padding: 30px 20px;
+      text-align: center;
+    }
+    .otw-banner h2 { font-size: 28px; font-weight: 800; color: #000; margin-bottom: 8px; }
+    .otw-banner p { color: #333; font-size: 16px; margin-bottom: 16px; }
+    .otw-banner a {
+      background: #000;
+      color: #facc15;
+      padding: 12px 28px;
+      border-radius: 10px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: 0.3s;
+      display: inline-block;
+    }
+    .otw-banner a:hover { background: #111; transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 30px; }
+      .timeline::before { left: 20px; }
+      .cert-meta { gap: 20px; }
+      .cert-card { padding: 40px 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo" onclick="goToSection('home')">
+        <img src="images/logo.png" alt="Logo" />
+      </div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#journey">Journey</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact" class="contact-btn">Hire Me</a>
+      </div>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+    <div id="mobileMenu" class="mobile-menu">
+      <button onclick="goToSection('home')">Home</button>
+      <button onclick="goToSection('about')">About</button>
+      <button onclick="goToSection('skills')">Skills</button>
+      <button onclick="goToSection('projects')">Projects</button>
+      <button onclick="goToSection('journey')">Journey</button>
+      <button onclick="goToSection('certifications')">Certifications</button>
+      <button class="mobile-contact" onclick="goToSection('contact')">Hire Me</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <img src="images/image.png" alt="Hero Banner" class="hero-bg" loading="lazy">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>
+        "Building cloud infrastructure<br>
+        the agentic way — with Claude Code."
+      </h1>
+      <div class="pipeline-steps" style="margin-top:30px;">
+        <span class="pipeline-step">/scaffold-terraform</span>
+        <span class="pipeline-arrow">→</span>
+        <span class="pipeline-step">terraform init</span>
+        <span class="pipeline-arrow">→</span>
+        <span class="pipeline-step">/tf-plan</span>
+        <span class="pipeline-arrow">→</span>
+        <span class="pipeline-step">/tf-apply</span>
+        <span class="pipeline-arrow">→</span>
+        <span class="pipeline-step">/deploy</span>
+        <span class="pipeline-arrow">→</span>
+        <span class="pipeline-step" style="background:rgba(34,197,94,0.2);border-color:#22c55e;color:#22c55e;">🌐 Live</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      <h1 class="about-title">Your Name</h1>
+      <p class="about-subtitle">
+        DevOps Engineer from Nellore, Andhra Pradesh — currently upskilling in
+        Agentic AI DevOps with Claude Code. I build cloud infrastructure on AWS using
+        Terraform, automate deployment pipelines, and design safety-first agentic
+        workflows that go beyond traditional CI/CD.
+      </p>
+      <div class="about-grid" style="margin-top:60px;">
+        <div class="about-card">
+          <i class="fa-brands fa-aws"></i>
+          <h3>AWS Cloud</h3>
+          <p>Building and deploying scalable infrastructure on AWS — S3, CloudFront, EC2, IAM, and more.</p>
+        </div>
+        <div class="about-card">
+          <i class="fa-solid fa-code-branch"></i>
+          <h3>DevOps Engineer</h3>
+          <p>CI/CD pipelines, Infrastructure as Code with Terraform, Docker, and Kubernetes.</p>
+        </div>
+        <div class="about-card">
+          <i class="fa-solid fa-robot"></i>
+          <h3>Agentic AI</h3>
+          <p>Designing Claude Code workflows with Skills, MCP, and Hooks for safe agentic DevOps automation.</p>
+        </div>
+        <div class="about-card">
+          <i class="fa-solid fa-shield-halved"></i>
+          <h3>Safety First</h3>
+          <p>Implementing SAY / DO / LOG hook systems that make AI-driven pipelines safe for production.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="skills-section">
+    <div class="skills-container">
+      <div class="skills-header">
+        <span style="font-size:12px;color:#ca8a04;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">Expertise</span>
+        <h2>Technical Skills</h2>
+        <p>A hands-on toolkit built through real projects and deployments</p>
+      </div>
+      <div class="skills-categories">
+
+        <div class="skill-category">
+          <h3><i class="fa-brands fa-aws"></i> Cloud & Infrastructure</h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">AWS S3</span>
+            <span class="skill-tag highlight">CloudFront</span>
+            <span class="skill-tag highlight">EC2</span>
+            <span class="skill-tag">IAM</span>
+            <span class="skill-tag">VPC</span>
+            <span class="skill-tag">Route 53</span>
+            <span class="skill-tag">RDS</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3><i class="fa-solid fa-layer-group"></i> Infrastructure as Code</h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">Terraform</span>
+            <span class="skill-tag">Ansible</span>
+            <span class="skill-tag">CloudFormation</span>
+            <span class="skill-tag">HCL</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3><i class="fa-solid fa-robot"></i> Agentic AI</h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">Claude Code</span>
+            <span class="skill-tag highlight">CLAUDE.md</span>
+            <span class="skill-tag highlight">Skills</span>
+            <span class="skill-tag highlight">MCP</span>
+            <span class="skill-tag highlight">Hooks</span>
+            <span class="skill-tag">Subagents</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3><i class="fa-brands fa-docker"></i> Containers & CI/CD</h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">Docker</span>
+            <span class="skill-tag">Kubernetes</span>
+            <span class="skill-tag">GitHub Actions</span>
+            <span class="skill-tag">Jenkins</span>
+            <span class="skill-tag">AWS CodePipeline</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3><i class="fa-solid fa-terminal"></i> Languages & Tools</h3>
+          <div class="skill-tags">
+            <span class="skill-tag highlight">Bash</span>
+            <span class="skill-tag highlight">Git</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Linux</span>
+            <span class="skill-tag">VS Code</span>
+            <span class="skill-tag">PowerShell</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3><i class="fa-solid fa-shield-halved"></i> Security & Monitoring</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">IAM Policies</span>
+            <span class="skill-tag">S3 Encryption</span>
+            <span class="skill-tag">CloudWatch</span>
+            <span class="skill-tag">Hook Guards</span>
+            <span class="skill-tag">Audit Logs</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="projects-section">
+    <div class="projects-container">
+      <div class="projects-header">
+        <span style="font-size:12px;color:#ca8a04;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">Portfolio</span>
+        <h2>Projects I Built</h2>
+        <p>Real deployments. Real infrastructure. Real outcomes.</p>
+      </div>
+
+      <!-- Project 1 — Main -->
+      <div class="project-card">
+        <span class="project-badge">🚀 Featured</span>
+        <h3>Agentic DevOps Pipeline — Live AWS Deployment</h3>
+        <p>
+          A fully working end-to-end deployment pipeline where Claude Code scaffolds Terraform,
+          plans and applies AWS infrastructure, and deploys a static site to S3 + CloudFront —
+          all through slash commands. Includes a 3-layer safety hook system (SAY / DO / LOG)
+          and live MCP connections to Terraform and AWS.
+        </p>
+        <div class="pipeline-visual">
+          <span>/scaffold-terraform</span> <span class="arrow">→</span> terraform init
+          <span class="arrow">→</span> <span>/tf-plan</span>
+          <span class="arrow">→</span> <span>/tf-apply</span>
+          <span class="arrow">→</span> <span>/deploy</span>
+          <span class="arrow">→</span> 🌐 Live on CloudFront
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">Claude Code</span>
+          <span class="tech-tag">Terraform</span>
+          <span class="tech-tag">AWS S3</span>
+          <span class="tech-tag">CloudFront</span>
+          <span class="tech-tag">MCP</span>
+          <span class="tech-tag">Bash Hooks</span>
+          <span class="tech-tag">IAM</span>
+          <span class="tech-tag">AES256 Encryption</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/your-username/agentic-devops-claude-code" target="_blank" class="project-link primary">
+            <i class="fa-brands fa-github"></i> View on GitHub
+          </a>
+          <a href="https://your-cloudfront-url.cloudfront.net" target="_blank" class="project-link secondary">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Live Site
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 2 — MCP Security -->
+      <div class="project-card">
+        <span class="project-badge">🔐 Security</span>
+        <h3>Terraform Security Audit Loop — MCP Powered</h3>
+        <p>
+          Implemented an automated security audit → fix → verify workflow using Claude Code
+          subagents and MCP. The security auditor agent reads Terraform files and identifies
+          misconfigurations. The tf-writer agent uses live Terraform MCP context to apply fixes
+          directly. Proven workflow: found and fixed missing S3 server-side encryption.
+        </p>
+        <div class="pipeline-visual">
+          Audit Terraform → <span>Find: missing S3 encryption</span>
+          <span class="arrow">→</span> <span>Fix: AES256 added via MCP</span>
+          <span class="arrow">→</span> Re-audit <span class="arrow">→</span> ✅ Clean
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">MCP</span>
+          <span class="tech-tag">Subagents</span>
+          <span class="tech-tag">Terraform</span>
+          <span class="tech-tag">AWS</span>
+          <span class="tech-tag">Security Audit</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/your-username/agentic-devops-claude-code" target="_blank" class="project-link primary">
+            <i class="fa-brands fa-github"></i> View Code
+          </a>
+        </div>
+      </div>
+
+      <!-- Project 3 — Hooks -->
+      <div class="project-card">
+        <span class="project-badge">🛡️ Safety</span>
+        <h3>Production-Ready Hook Safety System</h3>
+        <p>
+          Designed and implemented a 3-layer safety system for agentic DevOps workflows.
+          The SAY hook blocks destructive prompts before Claude processes them.
+          The DO hook intercepts dangerous Bash commands right before execution.
+          The LOG hook writes a timestamped audit trail of every command Claude runs.
+        </p>
+        <div class="pipeline-visual">
+          Prompt <span class="arrow">→</span> <span>SAY guard</span> (blocked: "delete all")
+          <span class="arrow">→</span> <span>DO guard</span> (blocked: terraform destroy)
+          <span class="arrow">→</span> <span>LOG</span> (audit trail ✅)
+        </div>
+        <div class="project-tech">
+          <span class="tech-tag">Bash Scripts</span>
+          <span class="tech-tag">Exit Codes</span>
+          <span class="tech-tag">Claude Hooks</span>
+          <span class="tech-tag">Audit Log</span>
+          <span class="tech-tag">settings.json</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/your-username/agentic-devops-claude-code/tree/main/.claude/hooks" target="_blank" class="project-link primary">
+            <i class="fa-brands fa-github"></i> View Hooks
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEARNING JOURNEY -->
+  <section id="journey" class="journey-section">
+    <div class="journey-container">
+      <div class="journey-header">
+        <span style="font-size:12px;color:#ca8a04;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">7 Weeks</span>
+        <h2>My Learning Journey</h2>
+        <p>Ultimate Agentic AI DevOps with Claude Code — by Pravin Mishra</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <div class="timeline-dot">1–2</div>
+          <div class="timeline-content">
+            <div class="timeline-week">Week 1–2</div>
+            <h3>Environment Setup + CLAUDE.md</h3>
+            <p>Set up the full DevOps toolchain (AWS CLI, Terraform, Docker, uvx, GitHub, VS Code). Created CLAUDE.md to give Claude project context, architecture, and hard conventions. Tested that Claude respects rules — refused to add React to a no-JS project.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">3</div>
+          <div class="timeline-content">
+            <div class="timeline-week">Week 3</div>
+            <h3>Skills — Reusable AI Task Modules</h3>
+            <p>Designed 4 production-grade Skills with correct tool permissions: /scaffold-terraform (write), /tf-plan (read-only), /tf-apply (execute), /deploy (AWS CLI execute). Understood why permissions must match task risk.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">4–5</div>
+          <div class="timeline-content">
+            <div class="timeline-week">Week 4–5</div>
+            <h3>First Agentic Deployment → Live on AWS</h3>
+            <p>Ran the full pipeline twice: scaffold → init → plan → apply → deploy. Static site went live on AWS S3 + CloudFront. Zero manual Terraform written. Ran it a second time and understood every step deeper than the first.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">6</div>
+          <div class="timeline-content">
+            <div class="timeline-week">Week 6</div>
+            <h3>MCP — Live Tool Access</h3>
+            <p>Connected Terraform and AWS MCP servers. Ran audit → fix → verify loop: found missing S3 encryption, fixed it via tf-writer using live MCP context, re-audited — clean. Learned the difference between training data and live data.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">7</div>
+          <div class="timeline-content">
+            <div class="timeline-week">Week 7 — Final</div>
+            <h3>Hooks & Safety — Production Guardrails</h3>
+            <p>Implemented SAY, DO, and LOG hooks. Proved they work: "delete all resources" blocked, terraform destroy blocked, /tf-apply logged. Understood why both prompt and tool guards are needed for true production safety.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="cert-section">
+    <div class="cert-container">
+      <div style="text-align:center;margin-bottom:60px;">
+        <span style="font-size:12px;color:#ca8a04;letter-spacing:2px;text-transform:uppercase;font-weight:bold;">Achievement</span>
+        <h2 style="font-size:44px;font-weight:800;margin-top:10px;">Certification</h2>
+        <p style="color:#666;font-size:18px;margin-top:10px;">Completed — March 2026</p>
+      </div>
+
+      <div class="cert-card">
+        <h2>🎓 Certificate of Completion</h2>
+        <h3>Ultimate Agentic AI DevOps with Claude Code</h3>
+        <p>
+          A 7-week hands-on course covering CLAUDE.md, Skills, Subagents, MCP, and Hook-based
+          safety systems. Every week had a real deliverable — not just theory, but working
+          deployments and live AWS infrastructure.
+        </p>
+        <div class="cert-meta">
+          <div><small>Completed</small><span>March 2026</span></div>
+          <div><small>Duration</small><span>7 Weeks</span></div>
+          <div><small>Assignments</small><span>7 / 7</span></div>
+          <div><small>Live Deployments</small><span>2 on AWS</span></div>
+        </div>
+
+        <!-- Certificate image placeholder -->
+        <div style="background:rgba(255,255,255,0.05);border:2px dashed #facc15;border-radius:14px;padding:40px;margin:20px 0;color:#facc15;font-size:14px;">
+          📜 Paste your certificate image here
+        </div>
+
+        <div class="cert-instructor">
+          <img src="images/profile.jpg" alt="Pravin Mishra" />
+          <div>
+            <strong>Pravin Mishra</strong>
+            <small>Cloud, DevOps & AI Consultant · Author of 3 Books · Apress Publisher</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pravin's Books Reference -->
+      <div style="margin-top:80px;">
+        <h3 style="text-align:center;font-size:28px;margin-bottom:40px;">Learning Resources by the Instructor</h3>
+        <div class="books-wrapper">
+
+          <article class="book-row" style="margin-bottom:60px;">
+            <div class="book-img">
+              <img src="images/awsCloud.jpg" alt="Cloud Computing with AWS" loading="lazy">
+            </div>
+            <div class="book-content">
+              <h3>Cloud Computing with AWS</h3>
+              <p>The foundational book that helped me understand AWS from the ground up — written by my course instructor.</p>
+              <div class="rating">⭐ 4.3 <span>(21 reviews)</span></div>
+              <a href="https://www.amazon.in/dp/1484291719" target="_blank" rel="noopener">View on Amazon →</a>
+            </div>
+          </article>
+
+          <article class="book-row reverse" style="margin-bottom:60px;">
+            <div class="book-img">
+              <img src="images/Devops.jpg" alt="Mastering AWS DevOps" loading="lazy">
+            </div>
+            <div class="book-content">
+              <h3>Mastering AWS DevOps</h3>
+              <p>Deep-dive reference for AWS DevOps patterns, pipelines, and real-world deployments. Essential companion to the course.</p>
+              <div class="rating">⭐ 5.0 <span>(1 review)</span></div>
+              <a href="https://www.amazon.in/dp/9356484880" target="_blank" rel="noopener">View on Amazon →</a>
+            </div>
+          </article>
+
+          <article class="book-row">
+            <div class="book-img">
+              <img src="images/Git.jpg" alt="Git and GitHub" loading="lazy">
+            </div>
+            <div class="book-content">
+              <h3>Ultimate Git and GitHub</h3>
+              <p>Mastering Git workflows and GitHub collaboration — the foundation of every DevOps pipeline built in this course.</p>
+              <div class="rating">⭐ 4.9 <span>(14 reviews)</span></div>
+              <a href="https://www.amazon.in/dp/8197223831" target="_blank" rel="noopener">View on Amazon →</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMUNITY / GITHUB STATS -->
+  <section id="community" class="trust-section">
+    <header class="trust-header">
+      <span>Connect</span>
+      <h2>Find Me Online</h2>
+      <p>Building in public — sharing every step of the Agentic AI DevOps journey.</p>
+    </header>
+    <div class="trust-grid">
+
+      <a href="https://github.com/your-username/agentic-devops-claude-code" target="_blank" rel="noopener" class="trust-card">
+        <i class="fa-brands fa-github book"></i>
+        <h3>GitHub Portfolio</h3>
+        <p>Full agentic pipeline — Skills, hooks, Terraform, MCP config</p>
+        <div class="line"></div>
+      </a>
+
+      <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener" class="trust-card">
+        <i class="fa-brands fa-linkedin linkedin"></i>
+        <h3>LinkedIn</h3>
+        <p>7-week learning series — all posts public with proof</p>
+        <div class="line"></div>
+      </a>
+
+      <a href="https://your-cloudfront-url.cloudfront.net" target="_blank" rel="noopener" class="trust-card">
+        <i class="fa-brands fa-aws amazon"></i>
+        <h3>Live AWS Site</h3>
+        <p>Deployed via Claude Code agentic pipeline — S3 + CloudFront</p>
+        <div class="line"></div>
+      </a>
+
+      <a href="mailto:your@email.com" class="trust-card">
+        <i class="fa-solid fa-envelope youtube" style="color:#facc15;"></i>
+        <h3>Email Me</h3>
+        <p>Open to DevOps / Cloud Engineering opportunities</p>
+        <div class="line"></div>
+      </a>
+
+    </div>
+    <div class="trust-stats">
+      <div><h3>7</h3><p>Assignments Completed</p></div>
+      <div><h3>2</h3><p>Live AWS Deployments</p></div>
+      <div><h3>4</h3><p>Skills Built</p></div>
+      <div><h3>3</h3><p>Hook Scripts Written</p></div>
+    </div>
+  </section>
+
+  <!-- OPEN TO WORK BANNER -->
+  <div class="otw-banner">
+    <h2>🟢 Open to Work</h2>
+    <p>Looking for DevOps Engineer / Cloud Engineer / Platform Engineer roles</p>
+    <a href="#contact">Let's Talk →</a>
+  </div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact-section">
+    <div class="contact-container">
+      <div class="contact-header">
+        <span>Get In Touch</span>
+        <h2>Let's Build Something Together</h2>
+        <p>Open to DevOps, Cloud Engineering, and Platform Engineering opportunities. Let's connect.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-card-dark">
+          <h3>Contact Information</h3>
+          <div class="contact-item">
+            <div class="icon-box yellow"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <small>Email</small>
+              <p><a href="mailto:your@email.com" style="color:#facc15;">your@email.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon-box blue"><i class="fa-brands fa-linkedin"></i></div>
+            <div>
+              <small>LinkedIn</small>
+              <p><a href="https://linkedin.com/in/your-profile" target="_blank" style="color:#60a5fa;">linkedin.com/in/your-profile</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon-box yellow"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <small>Location</small>
+              <p style="color:#ccc;">Nellore, Andhra Pradesh, India</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon-box blue"><i class="fa-brands fa-github"></i></div>
+            <div>
+              <small>GitHub</small>
+              <p><a href="https://github.com/your-username" target="_blank" style="color:#60a5fa;">github.com/your-username</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="contact-card-yellow">
+          <h3>What I Bring</h3>
+          <p>
+            Hands-on experience deploying real AWS infrastructure using Terraform and
+            agentic AI pipelines. I understand not just how to use the tools, but how to
+            design safe, repeatable, and scalable workflows around them.<br><br>
+            Actively upskilling. Building in public. Ready to contribute from day one.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="images/logo.png" alt="Logo" class="footer-logo" />
+          <p>DevOps Engineer specialising in Agentic AI workflows, AWS infrastructure, and Terraform automation. Built with Claude Code.</p>
+          <div class="footer-socials">
+            <a href="https://linkedin.com/in/your-profile" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/your-username" target="_blank"><i class="fa-brands fa-github"></i></a>
+            <a href="mailto:your@email.com"><i class="fa-solid fa-envelope"></i></a>
+          </div>
+        </div>
+        <div>
+          <h3>Projects</h3>
+          <ul>
+            <li><a href="#projects">Agentic Pipeline</a></li>
+            <li><a href="#projects">Security Audit Loop</a></li>
+            <li><a href="#projects">Hook Safety System</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© <span id="year"></span> Your Name — DevOps Engineer</p>
+        <p>Built with <span>Claude Code</span> · Deployed on <span>AWS</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    function toggleMenu() {
+      document.getElementById('mobileMenu').classList.toggle('show');
+    }
+
+    function goToSection(id) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById('mobileMenu').classList.remove('show');
+    }
+
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('fade-show'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.book-row, .timeline-content, .project-card, .skill-category').forEach(el => {
+      el.classList.add('fade-section');
+      observer.observe(el);
+    });
+  </script>
+
+</body>
+</html>

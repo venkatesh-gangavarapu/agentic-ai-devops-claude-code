@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "terraform": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["mcp-server-terraform"],
+      "scope": "project"
+    },
+    "aws": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["awslabs.aws-mcp-servers"],
+      "env": {
+        "AWS_PROFILE": "${AWS_PROFILE}",
+        "AWS_REGION": "${AWS_REGION}"
+      },
+      "scope": "project"
+    }
+  }
+}
